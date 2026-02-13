@@ -99,8 +99,16 @@ function LeadGenForm() {
     } catch (error) {
       console.error('Error sending to webhook:', error)
       setIsLoading(false)
-      setSubmittedData({ keyword: formData.keyword, country: countryText })
-      setShowError(true)
+
+      // Wait for loading modal to hide before showing error modal
+      setTimeout(() => {
+        setSubmittedData({
+          keyword: formData.keyword,
+          country: countryText,
+          errorMessage: null // Will show default "error sending to webhook" message
+        })
+        setShowError(true)
+      }, 300)
     }
   }
 

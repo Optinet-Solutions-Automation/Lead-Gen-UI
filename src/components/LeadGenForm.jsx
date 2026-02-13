@@ -73,7 +73,8 @@ function LeadGenForm() {
     console.log('Sending data to webhook:', webhookData)
 
     try {
-      const response = await fetch('https://automateoptinet.app.n8n.cloud/webhook-test/google-lead-gen', {
+      const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

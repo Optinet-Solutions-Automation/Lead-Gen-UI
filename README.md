@@ -88,12 +88,25 @@ https://your-domain.vercel.app/api/webhook-receiver
 
 ## Environment Variables
 
-Create a `.env` file in the root directory (optional):
+Create a `.env` file in the root directory:
 
 ```env
+# Country Profile IDs
 CANADA_PROFILEID=697b1b609a01a2ed8d8792ca
 GERMANY_PROFILEID=TBC
 NEWZEALAND_PROFILEID=TBC
 AUSTRIA_PROFILEID=TBC
 NORWAY_PROFILEID=TBC
+
+# N8N Webhook URL (REQUIRED)
+VITE_N8N_WEBHOOK_URL=https://automateoptinet.app.n8n.cloud/webhook-test/google-lead-gen
 ```
+
+**Important:** Environment variables prefixed with `VITE_` are exposed to the client-side code.
+
+### Vercel Environment Variables
+
+When deploying to Vercel, add these environment variables in the Vercel dashboard:
+1. Go to your project settings
+2. Navigate to "Environment Variables"
+3. Add `VITE_N8N_WEBHOOK_URL` with your n8n webhook URL

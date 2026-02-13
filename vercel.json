@@ -1,19 +1,15 @@
 {
-  "version": 2,
-  "builds": [
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
     {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/webhook-receiver.php",
-      "dest": "/api/webhook-receiver.js"
+      "source": "/webhook-receiver.php",
+      "destination": "/api/webhook-receiver"
     },
     {
-      "src": "/check-status.php",
-      "dest": "/api/check-status.js"
+      "source": "/check-status.php",
+      "destination": "/api/check-status"
     }
   ]
 }

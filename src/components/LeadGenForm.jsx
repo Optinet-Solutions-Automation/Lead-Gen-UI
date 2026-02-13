@@ -42,13 +42,25 @@ function LeadGenForm() {
             setShowSuccess(true)
             setFormData({ keyword: '', country: '' })
           } else {
-            setSubmittedData({ keyword, country: countryText })
+            // Error from n8n workflow
+            setSubmittedData({
+              keyword,
+              country: countryText,
+              errorMessage: data.message || 'An error occurred in the workflow',
+              failedNode: data.failed_node
+            })
             setShowError(true)
           }
         } else if (attempts >= maxAttempts) {
+          // Timeout error
           clearInterval(poll)
           setIsLoading(false)
-          setSubmittedData({ keyword, country: countryText })
+          setSubmittedData({
+            keyword,
+            country: countryText,
+            errorMessage: 'Request timed out. Please try again.',
+            failedNode: null
+          })
           setShowError(true)
         }
       } catch (error) {

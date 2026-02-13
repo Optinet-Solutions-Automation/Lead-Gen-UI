@@ -46,7 +46,21 @@ function ErrorModal({ show, onHide, data }) {
                 <p><strong>Keyword:</strong> {data.keyword}</p>
                 <p><strong>Country:</strong> {data.country}</p>
                 <hr />
-                <p className="text-danger mb-0"><strong>Note:</strong> There was an error sending to the webhook.</p>
+                {data.errorMessage && (
+                  <>
+                    <div className="alert alert-danger mb-3">
+                      <strong>Error:</strong> {data.errorMessage}
+                    </div>
+                    {data.failedNode && (
+                      <p className="text-muted mb-0">
+                        <strong>Failed Node:</strong> {data.failedNode}
+                      </p>
+                    )}
+                  </>
+                )}
+                {!data.errorMessage && (
+                  <p className="text-danger mb-0"><strong>Note:</strong> There was an error sending to the webhook.</p>
+                )}
               </>
             )}
           </div>

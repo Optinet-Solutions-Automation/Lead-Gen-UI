@@ -45,6 +45,21 @@ function SuccessModal({ show, onHide, data }) {
               <>
                 <p><strong>Keyword:</strong> {data.keyword}</p>
                 <p><strong>Country:</strong> {data.country}</p>
+                <hr />
+                <div className="alert alert-success mb-0">
+                  <strong>Scraping Successful.</strong>
+                  <p className="mb-0 mt-2">
+                    Please check the Google Sheet on{' '}
+                    <a
+                      href="https://docs.google.com/spreadsheets/d/1kkD2hZqyiDtOY-EGqaKfADpWMcRhPw6Lc2LD_iY8zNY"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="alert-link"
+                    >
+                      this link
+                    </a>.
+                  </p>
+                </div>
               </>
             )}
           </div>

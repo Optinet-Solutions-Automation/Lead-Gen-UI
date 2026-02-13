@@ -244,7 +244,7 @@
             const pollInterval = setInterval(() => {
                 attempts++;
 
-                fetch('check-status.php')
+                fetch('/api/check-status')
                     .then(response => response.json())
                     .then(data => {
                         if (data.found) {

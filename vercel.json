@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/webhook-receiver.php",
+      "dest": "/api/webhook-receiver.js"
+    },
+    {
+      "src": "/check-status.php",
+      "dest": "/api/check-status.js"
+    }
+  ]
+}

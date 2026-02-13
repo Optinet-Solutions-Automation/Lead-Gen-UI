@@ -23,7 +23,7 @@ function LeadGenForm() {
   }
 
   const pollStatus = async (keyword, countryText) => {
-    const maxAttempts = 120
+    const maxAttempts = 900 // Poll for up to 15 minutes (900 seconds)
     let attempts = 0
 
     const poll = setInterval(async () => {

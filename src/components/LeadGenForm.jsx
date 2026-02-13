@@ -23,12 +23,7 @@ function LeadGenForm() {
   }
 
   const pollStatus = async (keyword, countryText) => {
-    const maxAttempts = 900 // Poll for up to 15 minutes (900 seconds)
-    let attempts = 0
-
     const poll = setInterval(async () => {
-      attempts++
-
       try {
         const response = await fetch('/api/check-status')
         const data = await response.json()
@@ -51,17 +46,6 @@ function LeadGenForm() {
             })
             setShowError(true)
           }
-        } else if (attempts >= maxAttempts) {
-          // Timeout error
-          clearInterval(poll)
-          setIsLoading(false)
-          setSubmittedData({
-            keyword,
-            country: countryText,
-            errorMessage: 'Request timed out. Please try again.',
-            failedNode: null
-          })
-          setShowError(true)
         }
       } catch (error) {
         console.error('Error polling status:', error)

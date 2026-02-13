@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import { getRedis } from './lib/redis.js';
 
 export default async function handler(req, res) {
   // Set CORS headers
@@ -28,7 +27,7 @@ export default async function handler(req, res) {
   const message = data.message || '';
   const failedNode = data.failed_node || '';
 
-  // Store status data (using /tmp directory in Vercel)
+  // Store status data
   const statusData = {
     status: status,
     message: message,
@@ -37,18 +36,20 @@ export default async function handler(req, res) {
   };
 
   try {
-    // Write to /tmp directory (Vercel's temporary storage)
-    const tmpDir = '/tmp';
-    const statusFile = path.join(tmpDir, 'latest.json');
+    const redis = getRedis();
 
-    fs.writeFileSync(statusFile, JSON.stringify(statusData));
+    // Store in Redis with a key 'lead-gen:latest-status'
+    // Set expiration to 5 minutes (300 seconds)
+    await redis.set('lead-gen:latest-status', JSON.stringify(statusData), {
+      ex: 300
+    });
 
     return res.status(200).json({
       success: true,
       status: status
     });
   } catch (error) {
-    console.error('Error writing status:', error);
+    console.error('Error storing status:', error);
     return res.status(500).json({ error: 'Failed to store status' });
   }
 }

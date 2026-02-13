@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import { getRedis } from './lib/redis.js';
 
 export default async function handler(req, res) {
   // Set CORS headers
@@ -18,15 +17,18 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Check if latest status file exists in /tmp
-    const tmpDir = '/tmp';
-    const statusFile = path.join(tmpDir, 'latest.json');
+    const redis = getRedis();
 
-    if (fs.existsSync(statusFile)) {
-      const statusData = JSON.parse(fs.readFileSync(statusFile, 'utf8'));
+    // Get status from Redis
+    const statusJson = await redis.get('lead-gen:latest-status');
 
-      // Delete the file after reading
-      fs.unlinkSync(statusFile);
+    if (statusJson) {
+      const statusData = typeof statusJson === 'string'
+        ? JSON.parse(statusJson)
+        : statusJson;
+
+      // Delete the key after reading
+      await redis.del('lead-gen:latest-status');
 
       return res.status(200).json({
         found: true,

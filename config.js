@@ -1,0 +1,8 @@
+// Country Profile IDs Configuration
+const CONFIG = {
+    CANADA_PROFILEID: '697b1b609a01a2ed8d8792ca',
+    GERMANY_PROFILEID: 'TBC',
+    NEWZEALAND_PROFILEID: 'TBC',
+    AUSTRIA_PROFILEID: 'TBC',
+    NORWAY_PROFILEID: 'TBC'
+};
